@@ -50,4 +50,9 @@ class ClearpathClient(implicit system: ActorSystem) {
     { "/clearpath/api/1.0/crimes/rdNo" }
     { s"?rdNo=$rdNo&max=$max&sort=$sort&order=$order&offset=$offset" }
 
+  def crimesType(primary: String, max: Int=10, sort: String="", order: String="", offset: Int=0) = base
+    [ Crime ]
+    { "/clearpath/api/1.0/crimes/type" }
+    { s"?primary=$primary&max=$max&sort=$sort&order=$order&offset=$offset" }
+
 }
