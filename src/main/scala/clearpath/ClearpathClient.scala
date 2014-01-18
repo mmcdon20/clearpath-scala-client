@@ -1,5 +1,6 @@
 package clearpath
 
+import scala.concurrent.Future
 import akka.actor.{Props, ActorSystem}
 import spray.can.client.DefaultHttpClient
 import spray.client.HttpConduit
@@ -14,7 +15,7 @@ class ClearpathClient(implicit system: ActorSystem) {
   private val httpClient = DefaultHttpClient(system)
   private val conduit = system.actorOf(Props(new HttpConduit(httpClient, "api1.chicagopolice.org")))
 
-  private def base [T](path: String)(arguments: String)(implicit f: RootJsonFormat[T]) = {
+  private def base [T](path: String)(arguments: String)(implicit f: RootJsonFormat[T]): Future[List[T]] = {
     val pipeline = sendReceive(conduit) ~> unmarshal[List[T]]
     val future   = pipeline(Get(path+arguments))
     future
