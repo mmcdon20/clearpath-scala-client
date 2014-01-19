@@ -1,12 +1,11 @@
 package clearpath
 
-import scala.concurrent.Future
 import akka.actor.ActorSystem
-
-import spray.util._
+import scala.concurrent.Future
 import spray.client.pipelining._
 import spray.httpx.SprayJsonSupport
 import spray.json.RootJsonFormat
+
 import SprayJsonSupport._
 import CrimeJsonProtocol._
 
