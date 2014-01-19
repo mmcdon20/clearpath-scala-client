@@ -1,3 +1,7 @@
+name := "clearpath scala client"
+
+version := "0.1"
+
 resolvers += "spray repo" at "http://repo.spray.io/"
 
 libraryDependencies ++= {
