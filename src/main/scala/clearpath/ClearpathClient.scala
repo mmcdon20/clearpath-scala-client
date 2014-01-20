@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import scala.concurrent.Future
 import spray.client.pipelining._
 import spray.httpx.SprayJsonSupport
-import spray.json.RootJsonFormat
+import spray.json.JsonFormat
 
 import SprayJsonSupport._
 import CrimeJsonProtocol._
@@ -13,7 +13,7 @@ class ClearpathClient(implicit system: ActorSystem) {
   import system.dispatcher
   private val base = "http://api1.chicagopolice.org"
 
-  private def get [T](method: String)(arguments: String)(implicit f: RootJsonFormat[T]): Future[List[T]] = {
+  private def get [T](method: String)(arguments: String)(implicit f: JsonFormat[T]): Future[List[T]] = {
     val pipeline = sendReceive ~> unmarshal[List[T]]
     val future   = pipeline(Get(base+method+arguments))
     future
