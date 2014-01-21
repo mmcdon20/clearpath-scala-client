@@ -12,7 +12,10 @@ libraryDependencies ++= {
     "io.spray"          %  "spray-client"    % sprayVersion,
     "com.typesafe.akka" %% "akka-actor"      % akkaVersion,
     "com.typesafe.akka" %% "akka-slf4j"      % akkaVersion,
-    "ch.qos.logback"    %  "logback-classic" % "1.0.7"
+    "ch.qos.logback"    %  "logback-classic" % "1.0.7",
+    "org.scala-lang"    %  "scala-reflect"   % "2.10.2",
+    "org.scalatest"     %% "scalatest"       % "1.9.1" % "test",
+    "junit"             %  "junit"           % "4.10" % "test"
   )
 }
 
