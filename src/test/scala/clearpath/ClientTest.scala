@@ -7,6 +7,7 @@ import akka.actor.ActorSystem
 import org.scalatest.FunSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
+import clearpath.json._
 
 @RunWith(classOf[JUnitRunner])
 class ClientTest extends FunSpec {

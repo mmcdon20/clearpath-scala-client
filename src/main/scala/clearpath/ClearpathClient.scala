@@ -7,6 +7,7 @@ import spray.httpx.SprayJsonSupport
 import spray.json.JsonFormat
 
 import SprayJsonSupport._
+import clearpath.json._
 import CrimeJsonProtocol._
 
 class ClearpathClient(implicit system: ActorSystem) {
