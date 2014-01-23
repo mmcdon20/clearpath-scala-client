@@ -327,4 +327,43 @@ class ClientTest extends FunSpec {
       assert(sorted != unsorted)
     }
   }
+
+  describe("Mugshot Method") {
+    it("should return a list of Mugshot") {
+      val crimeFuture = client.mugshots("CR007353")
+      val result: List[Mugshot] = Await.result(crimeFuture, timeLimit)
+      assert(!result.isEmpty)
+    }
+    it("should be able to set a max limit") {
+      val crimeFuture1 = client.mugshots("CR007353", max = 5)
+      val crimeFuture2 = client.mugshots("CR007353", max = 1)
+      val result1: List[Mugshot] = Await.result(crimeFuture1, timeLimit)
+      val result2: List[Mugshot] = Await.result(crimeFuture2, timeLimit)
+      assert(result1.length == 5)
+      assert(result2.length == 1)
+    }
+    it("should be able to order results in asc and desc order") {
+      val ascFuture  = client.mugshots("CR007353", order = "asc")
+      val descFuture = client.mugshots("CR007353", order = "desc")
+      val asc:  List[Mugshot] = Await.result(ascFuture, timeLimit)
+      val desc: List[Mugshot] = Await.result(descFuture, timeLimit)
+      assert(asc != desc)
+    }
+    it("Should be able to set an offset") {
+      val offset1Future = client.mugshots("CR007353", offset = 1)
+      val offset2Future = client.mugshots("CR007353", offset = 2)
+      val off1: List[Mugshot] = Await.result(offset1Future, timeLimit)
+      val off2: List[Mugshot] = Await.result(offset2Future, timeLimit)
+      assert(off1(1) == off2(0))
+      assert(off1 != off2)
+    }
+    it("Should be able to sort on a field name") {
+      val sortedFuture   = client.mugshots("CR007353", sort = "image")
+      val unsortedFuture = client.mugshots("CR007353")
+      val sorted:   List[Mugshot] = Await.result(sortedFuture, timeLimit)
+      val unsorted: List[Mugshot] = Await.result(unsortedFuture, timeLimit)
+      assert(sorted == sorted.sortWith(_.image.getOrElse(" ") < _.image.getOrElse(" ")))
+      assert(sorted != unsorted)
+    }
+  }
 }
