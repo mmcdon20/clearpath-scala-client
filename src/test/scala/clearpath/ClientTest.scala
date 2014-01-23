@@ -14,20 +14,36 @@ class ClientTest extends FunSpec {
 
   implicit val system = ActorSystem("testing-clearpath-client")
   val client = new ClearpathClient
+  val timeLimit = 5 seconds
 
   describe("Most Wanted Method"){
     it("should return a list of WantedCriminal") {
       val wantedFuture = client.mostWanted()
-      val result: List[WantedCriminal] = Await.result(wantedFuture, 5 seconds)
+      val result: List[WantedCriminal] = Await.result(wantedFuture, timeLimit)
       assert(!result.isEmpty)
     }
     it("should be able to set a max limit") {
       val wantedFuture1 = client.mostWanted(max = 5)
-      val result1: List[WantedCriminal] = Await.result(wantedFuture1, 5 seconds)
+      val result1: List[WantedCriminal] = Await.result(wantedFuture1, timeLimit)
       val wantedFuture2 = client.mostWanted(max = 1)
-      val result2: List[WantedCriminal] = Await.result(wantedFuture2, 5 seconds)
+      val result2: List[WantedCriminal] = Await.result(wantedFuture2, timeLimit)
       assert(result1.length <= 5)
       assert(result2.length == 1)
+    }
+    it("should be able to order results in asc and desc order") {
+      val ascFuture = client.mostWanted(order = "asc")
+      val descFuture = client.mostWanted(order = "desc")
+      val asc: List[WantedCriminal] = Await.result(ascFuture, timeLimit)
+      val desc: List[WantedCriminal] = Await.result(descFuture, timeLimit)
+      assert(asc != desc)
+    }
+    it("Should be able to set an offset"){
+      val offset1Future = client.mostWanted(offset = 1)
+      val offset2Future = client.mostWanted(offset = 2)
+      val off1: List[WantedCriminal] = Await.result(offset1Future, timeLimit)
+      val off2: List[WantedCriminal] = Await.result(offset2Future, timeLimit)
+      assert(off1(1) == off2(0))
+      assert(off1 != off2)
     }
   }
 
