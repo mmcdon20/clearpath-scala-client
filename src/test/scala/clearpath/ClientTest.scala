@@ -249,4 +249,43 @@ class ClientTest extends FunSpec {
       assert(sorted != unsorted)
     }
   }
+
+  describe("Crimes Type Method") {
+    it("should return a list of Crime") {
+      val crimeFuture = client.crimesType("ASSAULT")
+      val result: List[Crime] = Await.result(crimeFuture, timeLimit)
+      assert(!result.isEmpty)
+    }
+    it("should be able to set a max limit") {
+      val crimeFuture1 = client.crimesType("ASSAULT", max = 5)
+      val crimeFuture2 = client.crimesType("ASSAULT", max = 1)
+      val result1: List[Crime] = Await.result(crimeFuture1, timeLimit)
+      val result2: List[Crime] = Await.result(crimeFuture2, timeLimit)
+      assert(result1.length == 5)
+      assert(result2.length == 1)
+    }
+    it("should be able to order results in asc and desc order") {
+      val ascFuture  = client.crimesType("ASSAULT", order = "asc")
+      val descFuture = client.crimesType("ASSAULT", order = "desc")
+      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
+      val desc: List[Crime] = Await.result(descFuture, timeLimit)
+      assert(asc != desc)
+    }
+    it("Should be able to set an offset") {
+      val offset1Future = client.crimesType("ASSAULT", offset = 1)
+      val offset2Future = client.crimesType("ASSAULT", offset = 2)
+      val off1: List[Crime] = Await.result(offset1Future, timeLimit)
+      val off2: List[Crime] = Await.result(offset2Future, timeLimit)
+      assert(off1(1) == off2(0))
+      assert(off1 != off2)
+    }
+    it("Should be able to sort on a field name") {
+      val sortedFuture   = client.crimesType("ASSAULT", sort = "block")
+      val unsortedFuture = client.crimesType("ASSAULT")
+      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
+      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
+      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
+      assert(sorted != unsorted)
+    }
+  }
 }
