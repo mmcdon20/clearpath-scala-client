@@ -14,7 +14,7 @@ class ClientTest extends FunSpec {
 
   implicit val system = ActorSystem("testing-clearpath-client")
   val client = new ClearpathClient
-  val timeLimit = 10 seconds
+  val timeLimit = 10.seconds
 
   describe("Most Wanted Method") {
     it("should return a list of WantedCriminal") {
@@ -274,8 +274,8 @@ class ClientTest extends FunSpec {
 
   describe("Mugshot Method") {
     it("should return a list of Mugshot") {
-      val crimeFuture = client.mugshots("CR007353")
-      val result: List[Mugshot] = Await.result(crimeFuture, timeLimit)
+      val mugshotFuture = client.mugshots("CR007353")
+      val result: List[Mugshot] = Await.result(mugshotFuture, timeLimit)
       assert(!result.isEmpty)
     }
   }
