@@ -39,12 +39,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.mostWanted(sort = "age")
-      val unsortedFuture = client.mostWanted()
-      val sorted:   List[WantedCriminal] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[WantedCriminal] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.age.getOrElse(0) < _.age.getOrElse(0)))
-      assert(sorted != unsorted)
+      val sortedFuture = client.mostWanted(sort = "age")
+      val sorted: List[WantedCriminal] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.age))
     }
   }
 
@@ -71,12 +68,10 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.communityEvents(sort = "location")
-      val unsortedFuture = client.communityEvents()
-      val sorted:   List[CommunityEvent] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[CommunityEvent] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.location.getOrElse("") < _.location.getOrElse("")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.communityEvents(sort = "location")
+      val sorted: List[CommunityEvent] =
+        Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.location))
     }
   }
 
@@ -103,12 +98,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.communityCalendars(sort = "name")
-      val unsortedFuture = client.communityCalendars()
-      val sorted:   List[CommunityCalendar] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[CommunityCalendar] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.name.getOrElse(" ") < _.name.getOrElse(" ")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.communityCalendars(sort = "name")
+      val sorted: List[CommunityCalendar] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.name))
     }
   }
 
@@ -135,12 +127,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.crimesMajor(sort = "block")
-      val unsortedFuture = client.crimesMajor()
-      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.crimesMajor(sort = "block")
+      val sorted: List[Crime] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.block))
     }
   }
 
@@ -167,12 +156,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.crimesNearby(1178459,1886515, sort = "block")
-      val unsortedFuture = client.crimesNearby(1178459,1886515)
-      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.crimesNearby(1178459,1886515, sort = "block")
+      val sorted: List[Crime] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.block))
     }
   }
 
@@ -199,12 +185,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.crimesRdNo(814, sort = "block")
-      val unsortedFuture = client.crimesRdNo(814)
-      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.crimesRdNo(814, sort = "block")
+      val sorted: List[Crime] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.block))
     }
   }
 
@@ -231,12 +214,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.crimesType("ASSAULT", sort = "block")
-      val unsortedFuture = client.crimesType("ASSAULT")
-      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.crimesType("ASSAULT", sort = "block")
+      val sorted: List[Crime] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.block))
     }
   }
 
@@ -263,12 +243,9 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortedFuture   = client.crimesList(sort = "block")
-      val unsortedFuture = client.crimesList()
-      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
-      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
-      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
-      assert(sorted != unsorted)
+      val sortedFuture = client.crimesList(sort = "block")
+      val sorted: List[Crime] = Await.result(sortedFuture, timeLimit)
+      assert(sorted == sorted.sortBy(_.block))
     }
   }
 
