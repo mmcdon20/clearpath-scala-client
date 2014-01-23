@@ -69,8 +69,7 @@ class ClientTest extends FunSpec {
     }
     it("Should be able to sort on a field name") {
       val sortedFuture = client.communityEvents(sort = "location")
-      val sorted: List[CommunityEvent] =
-        Await.result(sortedFuture, timeLimit)
+      val sorted: List[CommunityEvent] = Await.result(sortedFuture, timeLimit)
       assert(sorted == sorted.sortBy(_.location))
     }
   }
@@ -100,7 +99,7 @@ class ClientTest extends FunSpec {
     it("Should be able to sort on a field name") {
       val sortedFuture = client.communityCalendars(sort = "name")
       val sorted: List[CommunityCalendar] = Await.result(sortedFuture, timeLimit)
-      assert(sorted == sorted.sortBy(_.name))
+      assert(sorted == sorted.sortBy(_.name.map(_.toLowerCase)))
     }
   }
 
