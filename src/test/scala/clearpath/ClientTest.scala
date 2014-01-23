@@ -24,16 +24,16 @@ class ClientTest extends FunSpec {
     }
     it("should be able to set a max limit") {
       val wantedFuture1 = client.mostWanted(max = 5)
-      val result1: List[WantedCriminal] = Await.result(wantedFuture1, timeLimit)
       val wantedFuture2 = client.mostWanted(max = 1)
+      val result1: List[WantedCriminal] = Await.result(wantedFuture1, timeLimit)
       val result2: List[WantedCriminal] = Await.result(wantedFuture2, timeLimit)
-      assert(result1.length <= 5)
+      assert(result1.length == 5)
       assert(result2.length == 1)
     }
     it("should be able to order results in asc and desc order") {
-      val ascFuture = client.mostWanted(order = "asc")
+      val ascFuture  = client.mostWanted(order = "asc")
       val descFuture = client.mostWanted(order = "desc")
-      val asc: List[WantedCriminal] = Await.result(ascFuture, timeLimit)
+      val asc:  List[WantedCriminal] = Await.result(ascFuture, timeLimit)
       val desc: List[WantedCriminal] = Await.result(descFuture, timeLimit)
       assert(asc != desc)
     }
@@ -45,6 +45,13 @@ class ClientTest extends FunSpec {
       assert(off1(1) == off2(0))
       assert(off1 != off2)
     }
+    it("Should be able to sort on a field name"){
+      val sortFuture     = client.mostWanted(sort = "age")
+      val unsortedFuture = client.mostWanted()
+      val sort:     List[WantedCriminal] = Await.result(sortFuture, timeLimit)
+      val unsorted: List[WantedCriminal] = Await.result(unsortedFuture, timeLimit)
+      assert(sort == sort.sortWith(_.age.getOrElse(0) < _.age.getOrElse(0)))
+      assert(sort != unsorted)
+    }
   }
-
 }
