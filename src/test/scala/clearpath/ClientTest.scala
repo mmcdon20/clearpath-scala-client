@@ -16,7 +16,7 @@ class ClientTest extends FunSpec {
   val client = new ClearpathClient
   val timeLimit = 5 seconds
 
-  describe("Most Wanted Method"){
+  describe("Most Wanted Method") {
     it("should return a list of WantedCriminal") {
       val wantedFuture = client.mostWanted()
       val result: List[WantedCriminal] = Await.result(wantedFuture, timeLimit)
@@ -37,7 +37,7 @@ class ClientTest extends FunSpec {
       val desc: List[WantedCriminal] = Await.result(descFuture, timeLimit)
       assert(asc != desc)
     }
-    it("Should be able to set an offset"){
+    it("Should be able to set an offset") {
       val offset1Future = client.mostWanted(offset = 1)
       val offset2Future = client.mostWanted(offset = 2)
       val off1: List[WantedCriminal] = Await.result(offset1Future, timeLimit)
@@ -45,7 +45,7 @@ class ClientTest extends FunSpec {
       assert(off1(1) == off2(0))
       assert(off1 != off2)
     }
-    it("Should be able to sort on a field name"){
+    it("Should be able to sort on a field name") {
       val sortFuture     = client.mostWanted(sort = "age")
       val unsortedFuture = client.mostWanted()
       val sort:     List[WantedCriminal] = Await.result(sortFuture, timeLimit)
@@ -55,8 +55,8 @@ class ClientTest extends FunSpec {
     }
   }
 
-  describe("Community Events Method"){
-    it("should return a list of CommunityEvents") {
+  describe("Community Events Method") {
+    it("should return a list of CommunityEvent") {
       val eventsFuture = client.communityEvents()
       val result: List[CommunityEvent] = Await.result(eventsFuture, timeLimit)
       assert(!result.isEmpty)
@@ -76,7 +76,7 @@ class ClientTest extends FunSpec {
       val desc: List[CommunityEvent] = Await.result(descFuture, timeLimit)
       assert(asc != desc)
     }
-    it("Should be able to set an offset"){
+    it("Should be able to set an offset") {
       val offset1Future = client.communityEvents(offset = 1)
       val offset2Future = client.communityEvents(offset = 2)
       val off1: List[CommunityEvent] = Await.result(offset1Future, timeLimit)
@@ -84,12 +84,51 @@ class ClientTest extends FunSpec {
       assert(off1(1) == off2(0))
       assert(off1 != off2)
     }
-    it("Should be able to sort on a field name"){
+    it("Should be able to sort on a field name") {
       val sortFuture     = client.communityEvents(sort = "location")
       val unsortedFuture = client.communityEvents()
       val sort:     List[CommunityEvent] = Await.result(sortFuture, timeLimit)
       val unsorted: List[CommunityEvent] = Await.result(unsortedFuture, timeLimit)
       assert(sort == sort.sortWith(_.location.getOrElse("") < _.location.getOrElse("")))
+      assert(sort != unsorted)
+    }
+  }
+
+  describe("Community Calendars Method") {
+    it("should return a list of CommunityCalender") {
+      val calendarsFuture = client.communityCalendars()
+      val result: List[CommunityCalendar] = Await.result(calendarsFuture, timeLimit)
+      assert(!result.isEmpty)
+    }
+    it("should be able to set a max limit") {
+      val calendarFuture1 = client.communityCalendars(max = 5)
+      val calendarFuture2 = client.communityCalendars(max = 1)
+      val result1: List[CommunityCalendar] = Await.result(calendarFuture1, timeLimit)
+      val result2: List[CommunityCalendar] = Await.result(calendarFuture2, timeLimit)
+      assert(result1.length == 5)
+      assert(result2.length == 1)
+    }
+    it("should be able to order results in asc and desc order") {
+      val ascFuture  = client.communityCalendars(order = "asc")
+      val descFuture = client.communityCalendars(order = "desc")
+      val asc:  List[CommunityCalendar] = Await.result(ascFuture, timeLimit)
+      val desc: List[CommunityCalendar] = Await.result(descFuture, timeLimit)
+      assert(asc != desc)
+    }
+    it("Should be able to set an offset") {
+      val offset1Future = client.communityCalendars(offset = 1)
+      val offset2Future = client.communityCalendars(offset = 2)
+      val off1: List[CommunityCalendar] = Await.result(offset1Future, timeLimit)
+      val off2: List[CommunityCalendar] = Await.result(offset2Future, timeLimit)
+      assert(off1(1) == off2(0))
+      assert(off1 != off2)
+    }
+    it("Should be able to sort on a field name") {
+      val sortFuture     = client.communityCalendars(sort = "name")
+      val unsortedFuture = client.communityCalendars()
+      val sort:     List[CommunityCalendar] = Await.result(sortFuture, timeLimit)
+      val unsorted: List[CommunityCalendar] = Await.result(unsortedFuture, timeLimit)
+      assert(sort == sort.sortWith(_.name.getOrElse(" ") < _.name.getOrElse(" ")))
       assert(sort != unsorted)
     }
   }
