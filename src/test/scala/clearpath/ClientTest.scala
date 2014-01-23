@@ -14,7 +14,7 @@ class ClientTest extends FunSpec {
 
   implicit val system = ActorSystem("testing-clearpath-client")
   val client = new ClearpathClient
-  val timeLimit = 5 seconds
+  val timeLimit = 10 seconds
 
   describe("Most Wanted Method") {
     it("should return a list of WantedCriminal") {
@@ -46,12 +46,12 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortFuture     = client.mostWanted(sort = "age")
+      val sortedFuture   = client.mostWanted(sort = "age")
       val unsortedFuture = client.mostWanted()
-      val sort:     List[WantedCriminal] = Await.result(sortFuture, timeLimit)
+      val sorted:   List[WantedCriminal] = Await.result(sortedFuture, timeLimit)
       val unsorted: List[WantedCriminal] = Await.result(unsortedFuture, timeLimit)
-      assert(sort == sort.sortWith(_.age.getOrElse(0) < _.age.getOrElse(0)))
-      assert(sort != unsorted)
+      assert(sorted == sorted.sortWith(_.age.getOrElse(0) < _.age.getOrElse(0)))
+      assert(sorted != unsorted)
     }
   }
 
@@ -85,12 +85,12 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortFuture     = client.communityEvents(sort = "location")
+      val sortedFuture   = client.communityEvents(sort = "location")
       val unsortedFuture = client.communityEvents()
-      val sort:     List[CommunityEvent] = Await.result(sortFuture, timeLimit)
+      val sorted:   List[CommunityEvent] = Await.result(sortedFuture, timeLimit)
       val unsorted: List[CommunityEvent] = Await.result(unsortedFuture, timeLimit)
-      assert(sort == sort.sortWith(_.location.getOrElse("") < _.location.getOrElse("")))
-      assert(sort != unsorted)
+      assert(sorted == sorted.sortWith(_.location.getOrElse("") < _.location.getOrElse("")))
+      assert(sorted != unsorted)
     }
   }
 
@@ -124,12 +124,51 @@ class ClientTest extends FunSpec {
       assert(off1 != off2)
     }
     it("Should be able to sort on a field name") {
-      val sortFuture     = client.communityCalendars(sort = "name")
+      val sortedFuture   = client.communityCalendars(sort = "name")
       val unsortedFuture = client.communityCalendars()
-      val sort:     List[CommunityCalendar] = Await.result(sortFuture, timeLimit)
+      val sorted:   List[CommunityCalendar] = Await.result(sortedFuture, timeLimit)
       val unsorted: List[CommunityCalendar] = Await.result(unsortedFuture, timeLimit)
-      assert(sort == sort.sortWith(_.name.getOrElse(" ") < _.name.getOrElse(" ")))
-      assert(sort != unsorted)
+      assert(sorted == sorted.sortWith(_.name.getOrElse(" ") < _.name.getOrElse(" ")))
+      assert(sorted != unsorted)
+    }
+  }
+
+  describe("Crimes Major Method") {
+    it("should return a list of Crime") {
+      val crimeFuture = client.crimesMajor()
+      val result: List[Crime] = Await.result(crimeFuture, timeLimit)
+      assert(!result.isEmpty)
+    }
+    it("should be able to set a max limit") {
+      val crimeFuture1 = client.crimesMajor(max = 5)
+      val crimeFuture2 = client.crimesMajor(max = 1)
+      val result1: List[Crime] = Await.result(crimeFuture1, timeLimit)
+      val result2: List[Crime] = Await.result(crimeFuture2, timeLimit)
+      assert(result1.length == 5)
+      assert(result2.length == 1)
+    }
+    it("should be able to order results in asc and desc order") {
+      val ascFuture  = client.crimesMajor(order = "asc")
+      val descFuture = client.crimesMajor(order = "desc")
+      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
+      val desc: List[Crime] = Await.result(descFuture, timeLimit)
+      assert(asc != desc)
+    }
+    it("Should be able to set an offset") {
+      val offset1Future = client.crimesMajor(offset = 1)
+      val offset2Future = client.crimesMajor(offset = 2)
+      val off1: List[Crime] = Await.result(offset1Future, timeLimit)
+      val off2: List[Crime] = Await.result(offset2Future, timeLimit)
+      assert(off1(1) == off2(0))
+      assert(off1 != off2)
+    }
+    it("Should be able to sort on a field name") {
+      val sortedFuture   = client.crimesMajor(sort = "block")
+      val unsortedFuture = client.crimesMajor()
+      val sorted:   List[Crime] = Await.result(sortedFuture, timeLimit)
+      val unsorted: List[Crime] = Await.result(unsortedFuture, timeLimit)
+      assert(sorted == sorted.sortWith(_.block.getOrElse(" ") < _.block.getOrElse(" ")))
+      assert(sorted != unsorted)
     }
   }
 }
