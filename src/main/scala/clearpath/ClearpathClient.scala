@@ -20,49 +20,49 @@ class ClearpathClient(implicit system: ActorSystem) {
     future
   }
 
-  def mostWanted(effectiveDate: String="", district: String="", max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def mostWanted(effectiveDate: String="", district: String="", max: Int=10, sort: String="", offset: Int=0) = get
     [ WantedCriminal ]
     { "/clearpath/api/1.0/mostWanted/list" }
-    { s"?effectiveDate=$effectiveDate&district=$district&max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?effectiveDate=$effectiveDate&district=$district&max=$max&sort=$sort&offset=$offset" }
 
-  def communityEvents(max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def communityEvents(max: Int=10, sort: String="", offset: Int=0) = get
     [ CommunityEvent ]
     { "/clearpath/api/1.0/communityCalendar/events" }
-    { s"?max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?max=$max&sort=$sort&offset=$offset" }
 
-  def communityCalendars(max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def communityCalendars(max: Int=10, sort: String="", offset: Int=0) = get
     [ CommunityCalendar ]
     { "/clearpath/api/1.0/communityCalendar" }
-    { s"?max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?max=$max&sort=$sort&offset=$offset" }
 
-  def crimesMajor(block: String="", max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def crimesMajor(block: String="", max: Int=10, sort: String="", offset: Int=0) = get
     [ Crime ]
     { "/clearpath/api/1.0/crimes/major" }
-    { s"?block=$block&max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?block=$block&max=$max&sort=$sort&offset=$offset" }
 
-  def crimesNearby(x: Int, y: Int, radius: Int=1000, max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def crimesNearby(x: Int, y: Int, radius: Int=1000, max: Int=10, sort: String="", offset: Int=0) = get
     [ Crime ]
     { "/clearpath/api/1.0/crimes/nearbyXY" }
-    { s"?x=$x&y=$y&radius=$radius&max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?x=$x&y=$y&radius=$radius&max=$max&sort=$sort&offset=$offset" }
 
-  def crimesRdNo(rdNo: Int, max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def crimesRdNo(rdNo: Int, max: Int=10, sort: String="", offset: Int=0) = get
     [ Crime ]
     { "/clearpath/api/1.0/crimes/rdNo" }
-    { s"?rdNo=$rdNo&max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?rdNo=$rdNo&max=$max&sort=$sort&offset=$offset" }
 
-  def crimesType(primary: String, max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def crimesType(primary: String, max: Int=10, sort: String="", offset: Int=0) = get
     [ Crime ]
     { "/clearpath/api/1.0/crimes/type" }
-    { s"?primary=$primary&max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?primary=$primary&max=$max&sort=$sort&offset=$offset" }
 
-  def crimesList(max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def crimesList(max: Int=10, sort: String="", offset: Int=0) = get
     [ Crime ]
     { "/clearpath/api/1.0/crimes/list" }
-    { s"?max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?max=$max&sort=$sort&offset=$offset" }
 
-  def mugshots(warrantNo: String, max: Int=10, sort: String="", order: String="", offset: Int=0) = get
+  def mugshots(warrantNo: String, max: Int=10, sort: String="", offset: Int=0) = get
     [ Mugshot ]
     { "/clearpath/api/1.0/mugshots" }
-    { s"?warrantNo=$warrantNo&max=$max&sort=$sort&order=$order&offset=$offset" }
+    { s"?warrantNo=$warrantNo&max=$max&sort=$sort&offset=$offset" }
 
 }

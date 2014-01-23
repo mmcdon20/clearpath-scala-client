@@ -30,13 +30,6 @@ class ClientTest extends FunSpec {
       assert(result1.length == 5)
       assert(result2.length == 1)
     }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.mostWanted(order = "asc")
-      val descFuture = client.mostWanted(order = "desc")
-      val asc:  List[WantedCriminal] = Await.result(ascFuture, timeLimit)
-      val desc: List[WantedCriminal] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
-    }
     it("Should be able to set an offset") {
       val offset1Future = client.mostWanted(offset = 1)
       val offset2Future = client.mostWanted(offset = 2)
@@ -68,13 +61,6 @@ class ClientTest extends FunSpec {
       val result2: List[CommunityEvent] = Await.result(eventFuture2, timeLimit)
       assert(result1.length == 5)
       assert(result2.length == 1)
-    }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.communityEvents(order = "asc")
-      val descFuture = client.communityEvents(order = "desc")
-      val asc:  List[CommunityEvent] = Await.result(ascFuture, timeLimit)
-      val desc: List[CommunityEvent] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
     }
     it("Should be able to set an offset") {
       val offset1Future = client.communityEvents(offset = 1)
@@ -108,13 +94,6 @@ class ClientTest extends FunSpec {
       assert(result1.length == 5)
       assert(result2.length == 1)
     }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.communityCalendars(order = "asc")
-      val descFuture = client.communityCalendars(order = "desc")
-      val asc:  List[CommunityCalendar] = Await.result(ascFuture, timeLimit)
-      val desc: List[CommunityCalendar] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
-    }
     it("Should be able to set an offset") {
       val offset1Future = client.communityCalendars(offset = 1)
       val offset2Future = client.communityCalendars(offset = 2)
@@ -146,13 +125,6 @@ class ClientTest extends FunSpec {
       val result2: List[Crime] = Await.result(crimeFuture2, timeLimit)
       assert(result1.length == 5)
       assert(result2.length == 1)
-    }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.crimesMajor(order = "asc")
-      val descFuture = client.crimesMajor(order = "desc")
-      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
-      val desc: List[Crime] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
     }
     it("Should be able to set an offset") {
       val offset1Future = client.crimesMajor(offset = 1)
@@ -186,13 +158,6 @@ class ClientTest extends FunSpec {
       assert(result1.length == 5)
       assert(result2.length == 1)
     }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.crimesNearby(1178459,1886515, order = "asc")
-      val descFuture = client.crimesNearby(1178459,1886515, order = "desc")
-      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
-      val desc: List[Crime] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
-    }
     it("Should be able to set an offset") {
       val offset1Future = client.crimesNearby(1178459,1886515, offset = 1)
       val offset2Future = client.crimesNearby(1178459,1886515, offset = 2)
@@ -224,13 +189,6 @@ class ClientTest extends FunSpec {
       val result2: List[Crime] = Await.result(crimeFuture2, timeLimit)
       assert(result1.length == 5)
       assert(result2.length == 1)
-    }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.crimesRdNo(814, order = "asc")
-      val descFuture = client.crimesRdNo(814, order = "desc")
-      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
-      val desc: List[Crime] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
     }
     it("Should be able to set an offset") {
       val offset1Future = client.crimesRdNo(814, offset = 1)
@@ -264,13 +222,6 @@ class ClientTest extends FunSpec {
       assert(result1.length == 5)
       assert(result2.length == 1)
     }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.crimesType("ASSAULT", order = "asc")
-      val descFuture = client.crimesType("ASSAULT", order = "desc")
-      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
-      val desc: List[Crime] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
-    }
     it("Should be able to set an offset") {
       val offset1Future = client.crimesType("ASSAULT", offset = 1)
       val offset2Future = client.crimesType("ASSAULT", offset = 2)
@@ -303,13 +254,6 @@ class ClientTest extends FunSpec {
       assert(result1.length == 5)
       assert(result2.length == 1)
     }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.crimesList(order = "asc")
-      val descFuture = client.crimesList(order = "desc")
-      val asc:  List[Crime] = Await.result(ascFuture, timeLimit)
-      val desc: List[Crime] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
-    }
     it("Should be able to set an offset") {
       val offset1Future = client.crimesList(offset = 1)
       val offset2Future = client.crimesList(offset = 2)
@@ -341,13 +285,6 @@ class ClientTest extends FunSpec {
       val result2: List[Mugshot] = Await.result(crimeFuture2, timeLimit)
       assert(result1.length == 5)
       assert(result2.length == 1)
-    }
-    it("should be able to order results in asc and desc order") {
-      val ascFuture  = client.mugshots("CR007353", order = "asc")
-      val descFuture = client.mugshots("CR007353", order = "desc")
-      val asc:  List[Mugshot] = Await.result(ascFuture, timeLimit)
-      val desc: List[Mugshot] = Await.result(descFuture, timeLimit)
-      assert(asc != desc)
     }
     it("Should be able to set an offset") {
       val offset1Future = client.mugshots("CR007353", offset = 1)
