@@ -16,7 +16,7 @@ class ClearpathClient(implicit system: ActorSystem) {
 
   private def get [T](method: String)(arguments: String)(implicit f: JsonFormat[T]): Future[List[T]] = {
     val pipeline = sendReceive ~> unmarshal[List[T]]
-    val future   = pipeline(Get(base+method+arguments))
+    val future   = pipeline(Get(base+method+arguments.replaceAll(" ","+")))
     future
   }
 

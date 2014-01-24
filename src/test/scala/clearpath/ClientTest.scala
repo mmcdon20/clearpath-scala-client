@@ -14,7 +14,7 @@ class ClientTest extends FunSpec {
 
   implicit val system = ActorSystem("testing-clearpath-client")
   val client = new ClearpathClient
-  val timeLimit = 10.seconds
+  val timeLimit = 20.seconds
 
   describe("Most Wanted Method") {
     it("should return a list of WantedCriminal") {
@@ -51,8 +51,8 @@ class ClientTest extends FunSpec {
     }
     it("Should be able to set a district") {
       val districtFuture = client.mostWanted(district = "18")
-      val disrict: List[WantedCriminal] = Await.result(districtFuture, timeLimit)
-      assert(!disrict.isEmpty) // there is no district field to compare against
+      val district: List[WantedCriminal] = Await.result(districtFuture, timeLimit)
+      assert(!district.isEmpty) // there is no district field to compare against
     }
   }
 
@@ -140,6 +140,12 @@ class ClientTest extends FunSpec {
       val sortedFuture = client.crimesMajor(sort = "block")
       val sorted: List[Crime] = Await.result(sortedFuture, timeLimit)
       assert(sorted == sorted.sortBy(_.block))
+    }
+    it("Should be able to set a block") {
+      val blockFuture = client.crimesMajor(block = "026XX S INDIANA AV")
+      val block: List[Crime] = Await.result(blockFuture, timeLimit)
+      assert(block.forall(_.block.get contains "026XX S INDIANA AV"))
+      assert(!block.forall(_.block.get contains "029XX S MICHIGAN AV"))
     }
   }
 
