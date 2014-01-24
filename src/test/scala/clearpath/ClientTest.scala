@@ -43,6 +43,16 @@ class ClientTest extends FunSpec {
       val sorted: List[WantedCriminal] = Await.result(sortedFuture, timeLimit)
       assert(sorted == sorted.sortBy(_.age))
     }
+    it("Should be able to set an effective date") {
+      val datesFuture = client.mostWanted(effectiveDate = "04-01-2013")
+      val dates: List[WantedCriminal] = Await.result(datesFuture, timeLimit)
+      assert(dates.forall(_.effectiveDate.get == "04-01-2013"))
+    }
+    it("Should be able to set a district") {
+      val districtFuture = client.mostWanted(district = "18")
+      val disrict: List[WantedCriminal] = Await.result(districtFuture, timeLimit)
+      assert(!disrict.isEmpty) // there is no district field to compare against
+    }
   }
 
   describe("Community Events Method") {
