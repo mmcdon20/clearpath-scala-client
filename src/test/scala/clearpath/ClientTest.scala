@@ -46,7 +46,7 @@ class ClientTest extends FunSpec {
     it("Should be able to set an effective date") {
       val datesFuture = client.mostWanted(effectiveDate = "04-01-2013")
       val dates: List[WantedCriminal] = Await.result(datesFuture, timeLimit)
-      assert(dates.forall(_.effectiveDate.get == "04-01-2013"))
+      assert(dates.forall(_.effectiveDate == "04-01-2013"))
     }
     it("Should be able to set a district") {
       val districtFuture = client.mostWanted(district = "18")
