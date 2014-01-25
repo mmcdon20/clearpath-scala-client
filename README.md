@@ -18,7 +18,7 @@ import system.dispatcher
 val client = new ClearpathClient
 ```
 
-Now that the client has been instatiated, you can use it to make API calls, which return Future[List[T]] where T is a Case Class that represent the JSON data. Also note that the fields are all wrapped in an Option type to account for missing data, and therefore you will need to access the data through the .get or .getOrElse methods.
+Now that the client has been instantiated, you can use it to make API calls, which return Future[List[T]] where T is a Case Class that represent the JSON data. Also note that the fields are all wrapped in an Option type to account for missing data, and therefore you will need to access the data through the .get or .getOrElse methods.
 
 ```scala
 import scala.util.{Success,Failure}
