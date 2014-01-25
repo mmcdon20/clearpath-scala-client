@@ -42,88 +42,38 @@ wantedFuture.onComplete {
 
 ----------------------------
 
-Currently the following methods are supported
+Currently the following methods are supported:
 
-mostWanted
-* Optional parameters
- * effectiveDate: String
- * district: String
- * max: Int
- * sort: String
- * offset: String
-* Return type
- * Future[List[WantedCriminal]]
-
-communityEvents
-* Optional parameters
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[CommunityEvent]]
-
-communityCalendars
-* Optional parameters
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[CommunityCalendar]]
-
-crimesMajor
-* Optional parameters
- * block: String
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[Crime]]
-
-crimesNearby
-* Required parameters
- * x: Int
- * y: Int
-* Optional parameters
- * radius: Int
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[Crime]]
-
-crimesRdNo
-* Required parameters
- * rdNo: Int
-* Optional parameters
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[Crime]]
-
-crimesType
-* Required parameters
- * primary: String
-* Optional parameters
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[Crime]]
-
-crimesList
-* Optional parameters
- * max: Int
- * sort: String
- * offset: Int
-* Return type
- * Future[List[Crime]]
-
-mugshots
-* Required parameters
- * warrantNo: String
-* Return type
- * Future[List[Mugshot]]
+* mostWanted
+ * Optional parameters - effectiveDate: String, district: String, max: Int, sort: String, offset: String
+ * Return type - Future[List[WantedCriminal]]
+* communityEvents
+ * Optional parameters - max: Int, sort: String, offset: Int
+ * Return type - Future[List[CommunityEvent]]
+* communityCalendars
+ * Optional parameters - max: Int, sort: String, offset: Int
+ * Return type - Future[List[CommunityCalendar]]
+* crimesMajor
+ * Optional parameters - block: String, max: Int, sort: String, offset: Int
+ * Return type - Future[List[Crime]]
+* crimesNearby
+ * Required parameters - x: Int, y: Int
+ * Optional parameters - radius: Int, max: Int, sort: String, offset: Int
+ * Return type - Future[List[Crime]]
+* crimesRdNo
+ * Required parameters - rdNo: Int
+ * Optional parameters - max: Int, sort: String, offset: Int
+ * Return type - Future[List[Crime]]
+* crimesType
+ * Required parameters - primary: String
+ * Optional parameters - max: Int, sort: String, offset: Int
+ * Return type - Future[List[Crime]]
+* crimesList
+ * Optional parameters - max: Int, sort: String, offset: Int
+ * Return type - Future[List[Crime]]
+* mugshots
+ * Required parameters - warrantNo: String
+ * Return type - Future[List[Mugshot]]
 
 ----------------------------
 
