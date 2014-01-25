@@ -102,7 +102,7 @@ crimesRdNo
  * Future[List[Crime]]
 
 crimesType
-* Requiredd parameters
+* Required parameters
  * primary: String
 * Optional parameters
  * max: Int
