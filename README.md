@@ -77,5 +77,5 @@ Currently the following methods are supported:
 
 ----------------------------
 
-For more information on using the clearpath API, refer to the offical documentation:
+For more information refer to the offical API documentation:
 http://api1.chicagopolice.org/clearpath/documentation
