@@ -40,6 +40,12 @@ wantedFuture.onComplete {
 }
 ```
 
+Finally, shutdown the actor system when you are done.
+
+```scala
+system.shutdown
+```
+
 ----------------------------
 
 Currently the following methods are supported:
